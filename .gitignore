@@ -1,0 +1,7 @@
+/target
+/trie-memory.dat
+Cargo.lock
+*.swp
+*.swo
+.idea/
+.vscode/

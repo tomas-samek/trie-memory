@@ -1,0 +1,23 @@
+[package]
+name = "trie-memory"
+version = "0.1.0"
+edition = "2021"
+description = "Append-only trie memory using same/different/unknown classification. No floats."
+license = "CC-BY-NC-4.0"
+authors = ["Tomáš Samek"]
+
+[lib]
+name = "trie_memory"
+path = "src/lib.rs"
+
+[[bin]]
+name = "trie-memory-mcp"
+path = "src/main.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+tokio-stream = "0.1"
+bincode = "1"
+axum = "0.8"

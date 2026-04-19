@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cargo build:*)",
+      "Bash(cargo test:*)",
+      "Bash(timeout 3 cargo run -- --sse --port 3099)",
+      "Bash(./target/release/trie-memory-mcp.exe --sse)",
+      "Bash(curl -s -N --max-time 2 http://localhost:3001/sse)",
+      "Bash(curl -s -N --max-time 10 http://localhost:3001/sse)",
+      "Bash(rm:*)",
+      "Bash(taskkill //F //IM trie-memory-mcp.exe)",
+      "Bash(tasklist)",
+      "Bash(grep -E \"\\(panicked|Total nodes|Max depth|ok$|FAILED\\)\")",
+      "Bash(grep -E \"\\(panicked|got|ok$|FAILED\\)\")",
+      "Bash(xargs ls:*)",
+      "Bash(rm -f trie-memory.dat word-trie-memory.dat concept-store.json trie-content.json)",
+      "Bash(ls *.dat *.json)",
+      "Bash(./target/release/trie-memory.exe --sse)",
+      "Bash(cargo run *)",
+      "Read(//w/workspace/**)",
+      "Read(//c/Users/tomas/**)",
+      "Bash(git init *)",
+      "Bash(awk '{s+=$4} END{print \"total passing:\", s}')",
+      "Bash(grep -E \"\\(HARD FAIL|soft fail|pass$|pass \\\\\\(|per category|TOTAL\\)\")",
+      "Bash(awk '{s+=$4} END {print \"total tests:\", s}')",
+      "Bash(awk '{s+=$4} END {print \"total passing:\", s}')"
+    ]
+  }
+}
