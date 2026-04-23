@@ -228,16 +228,24 @@ up equally. What the testing actually showed:
   matching misses. Not fixable without revisiting indexing.
 
 **Deferred / not-in-scope:**
-- `STALE` mode (needs a domain-volatility classifier).
-- Multi-observer flows.
-- Real embedding layer for deep semantic paraphrase.
-- LLM-based renderer (template-only for now).
-- Baseline comparison against LLM + vector DB.
+- `STALE` mode (needs a domain-volatility classifier) — [#8](https://github.com/tomas-samek/trie-memory/issues/8).
+- Multi-observer flows — [#10](https://github.com/tomas-samek/trie-memory/issues/10).
+- Real embedding layer for deep semantic paraphrase — [#12](https://github.com/tomas-samek/trie-memory/issues/12).
+- LLM-based renderer (template-only for now) — [#7](https://github.com/tomas-samek/trie-memory/issues/7).
+- Baseline comparison against LLM + vector DB — [#5](https://github.com/tomas-samek/trie-memory/issues/5).
 
 For the full story including the three bugs the stress test caught and
 the threshold tuning, see
 [`docs/design/honest_agent/progress.md`](docs/design/honest_agent/progress.md)
 and the 2026-04 session notes under `docs/`.
+
+## Roadmap
+
+Post-PoC work is tracked in GitHub milestones:
+
+- **[M1 — PoC robustness](https://github.com/tomas-samek/trie-memory/milestone/1)** — fixes for known limits surfaced by stress testing. Indexing bug on distinctive content words ([#1](https://github.com/tomas-samek/trie-memory/issues/1)), mode-selector threshold robustness ([#2](https://github.com/tomas-samek/trie-memory/issues/2)), and the English-biased coverage signal ([#3](https://github.com/tomas-samek/trie-memory/issues/3)).
+- **[M2 — Honesty & validation](https://github.com/tomas-samek/trie-memory/milestone/2)** — close the gap between architectural claims and what's actually tested. Universal-tokenizer second modality ([#4](https://github.com/tomas-samek/trie-memory/issues/4)), LLM + vector-DB baseline comparison ([#5](https://github.com/tomas-samek/trie-memory/issues/5)), non-English paraphrase scenario ([#6](https://github.com/tomas-samek/trie-memory/issues/6)).
+- **[M3 — Post-PoC (Phase D)](https://github.com/tomas-samek/trie-memory/milestone/3)** — features explicitly deferred; see issues [#7–#14](https://github.com/tomas-samek/trie-memory/issues?q=is%3Aissue+milestone%3A%22M3+%E2%80%94+Post-PoC+%28Phase+D%29%22).
 
 ## Theoretical background
 

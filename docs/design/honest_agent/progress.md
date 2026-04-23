@@ -219,19 +219,50 @@ across 19 test files.
 ## Phase D — Deferred / post-PoC
 
 Explicitly out of scope for PoC. Listed so we don't accidentally
-wander into them.
+wander into them. All tracked on GitHub under milestones
+[M2](https://github.com/tomas-samek/trie-memory/milestone/2) and
+[M3](https://github.com/tomas-samek/trie-memory/milestone/3).
 
-- Universal tokenizer validation (requires a second modality)
-- LLM-based renderer (Task 06 option B)
-- Cross-domain confidence calibration
-- Per-domain recency half-life
-- Multi-observer flows
-- Cryptographic provenance signing
-- Automatic contradiction detection during writes
-- Persona / style tuning
-- Baseline comparison harness (LLM + vector DB)
+- Universal tokenizer validation (requires a second modality) —
+  [#4](https://github.com/tomas-samek/trie-memory/issues/4) (M2)
+- Baseline comparison harness (LLM + vector DB) —
+  [#5](https://github.com/tomas-samek/trie-memory/issues/5) (M2,
+  pulled up from D because it is load-bearing for the central claim)
+- Non-English paraphrase scenario —
+  [#6](https://github.com/tomas-samek/trie-memory/issues/6) (M2)
+- LLM-based renderer (Task 06 option B) —
+  [#7](https://github.com/tomas-samek/trie-memory/issues/7) (M3)
+- STALE mode + domain-volatility classifier —
+  [#8](https://github.com/tomas-samek/trie-memory/issues/8) (M3)
+- Cross-domain confidence calibration + per-domain recency half-life —
+  [#9](https://github.com/tomas-samek/trie-memory/issues/9) (M3)
+- Multi-observer flows —
+  [#10](https://github.com/tomas-samek/trie-memory/issues/10) (M3)
+- Automatic contradiction detection during writes —
+  [#11](https://github.com/tomas-samek/trie-memory/issues/11) (M3)
+- Embedding layer for deep semantic paraphrase —
+  [#12](https://github.com/tomas-samek/trie-memory/issues/12) (M3)
+- Cryptographic provenance signing —
+  [#13](https://github.com/tomas-samek/trie-memory/issues/13) (M3)
+- Persona / style tuning —
+  [#14](https://github.com/tomas-samek/trie-memory/issues/14) (M3)
 
 **P(we resist scope-creep into these during PoC): ~50%**, be honest.
+
+### M1 — PoC robustness (open issues uncovered by Phase B)
+
+Not deferred; these are the known gaps still visible in the current
+PoC state:
+
+- Indexing bug: distinctive content words route to a different subtree
+  than standard prose (Phase B stress `tides vs semaphore` soft fail) —
+  [#1](https://github.com/tomas-samek/trie-memory/issues/1)
+- Mode selector threshold robustness (sensitivity sweep + reproducible
+  tuning log) —
+  [#2](https://github.com/tomas-samek/trie-memory/issues/2)
+- Coverage signal has a hidden English prior (stopwords + trailing-s
+  stemming) —
+  [#3](https://github.com/tomas-samek/trie-memory/issues/3)
 
 ---
 
@@ -318,6 +349,10 @@ Update this section as phases complete. Keep entries short.
   `handle_remember`, and the cascade. New `Conflicted` mode fires
   before path-fall-through so revisions always surface. Append-only
   preserved. 163/163 tests pass.
+- 2026-04-23 — Post-PoC work migrated to GitHub milestones. Three
+  milestones (M1 PoC robustness, M2 Honesty & validation, M3 Post-PoC
+  Phase D) covering 14 issues (#1–#14) now track everything beyond
+  current PoC state. README gained a Roadmap section linking them.
 
 ---
 

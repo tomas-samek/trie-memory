@@ -86,7 +86,7 @@ pub fn weight_encode(input: &str) -> Vec<u8> {
     input.chars().map(|ch| char_weight(ch)).collect()
 }
 
-fn char_weight(ch: char) -> u8 {
+pub fn char_weight(ch: char) -> u8 {
     match ch {
         'a'..='z' => 200 + (ch as u8 - b'a'),         // 200-225: dense letter band
         'A'..='Z' => 230 + (ch as u8 - b'A'),         // 230-255: heavier uppercase
