@@ -346,6 +346,11 @@ impl ConceptStore {
     pub fn snapshot(&self, path: &str) -> Result<usize, String> {
         let json = serde_json::to_string_pretty(self).map_err(|e| e.to_string())?;
         let len = json.len();
+        if let Some(parent) = std::path::Path::new(path).parent() {
+            if !parent.as_os_str().is_empty() {
+                std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+            }
+        }
         std::fs::write(path, &json).map_err(|e| e.to_string())?;
         Ok(len)
     }
