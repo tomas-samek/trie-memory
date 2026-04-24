@@ -202,23 +202,25 @@ fn scenario_2_within_session_learning() {
 
 // ---------- Scenario 3 ----------
 
-fn snapshot_paths(suffix: &str) -> (String, String, String) {
+fn snapshot_paths(suffix: &str) -> (String, String, String, String) {
     let dir = std::env::temp_dir().join(format!("trie-memory-scenario-{}", suffix));
     std::fs::create_dir_all(&dir).ok();
     (
         dir.join("trie.dat").to_string_lossy().into_owned(),
         dir.join("word-trie.dat").to_string_lossy().into_owned(),
         dir.join("content.json").to_string_lossy().into_owned(),
+        dir.join("layer.json").to_string_lossy().into_owned(),
     )
 }
 
 #[test]
 fn scenario_3_cross_session_learning() {
-    let (trie_path, word_path, content_path) = snapshot_paths("cross-session");
+    let (trie_path, word_path, content_path, layer_path) = snapshot_paths("cross-session");
     // Ensure clean start.
     std::fs::remove_file(&trie_path).ok();
     std::fs::remove_file(&word_path).ok();
     std::fs::remove_file(&content_path).ok();
+    std::fs::remove_file(&layer_path).ok();
 
     // ---- Session 1: prime, teach, snapshot ----
     {
@@ -241,6 +243,7 @@ fn scenario_3_cross_session_learning() {
                 "path": trie_path,
                 "word_path": word_path,
                 "content_path": content_path,
+                "layer_path": layer_path,
             }),
         );
         assert!(
@@ -259,6 +262,7 @@ fn scenario_3_cross_session_learning() {
                 "path": trie_path.clone(),
                 "word_path": word_path.clone(),
                 "content_path": content_path.clone(),
+                "layer_path": layer_path.clone(),
             }),
         );
         assert!(

@@ -164,25 +164,27 @@ pub fn tool_list() -> Value {
             },
             {
                 "name": "trie_snapshot",
-                "description": "Save both tries (byte + word) and content store to disk.",
+                "description": "Save both tries (byte + word), content store, and layer store to disk.",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
                         "path": { "type": "string", "description": "Byte-trie file path (default: ./trie-memory.dat)" },
                         "word_path": { "type": "string", "description": "Word-trie file path (default: ./word-trie-memory.dat)" },
-                        "content_path": { "type": "string", "description": "Content-store file path (default: ./content-store.json)" }
+                        "content_path": { "type": "string", "description": "Content-store file path (default: ./content-store.json)" },
+                        "layer_path": { "type": "string", "description": "Layer-store file path (default: ./layer-store.json)" }
                     }
                 }
             },
             {
                 "name": "trie_restore",
-                "description": "Restore both tries (byte + word) and content store from disk.",
+                "description": "Restore both tries (byte + word), content store, and layer store from disk.",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
                         "path": { "type": "string", "description": "Byte-trie file path (default: ./trie-memory.dat)" },
                         "word_path": { "type": "string", "description": "Word-trie file path (default: ./word-trie-memory.dat)" },
-                        "content_path": { "type": "string", "description": "Content-store file path (default: ./content-store.json)" }
+                        "content_path": { "type": "string", "description": "Content-store file path (default: ./content-store.json)" },
+                        "layer_path": { "type": "string", "description": "Layer-store file path (default: ./layer-store.json)" }
                     }
                 }
             },
@@ -987,6 +989,10 @@ fn handle_snapshot(trie: &Trie, word_trie: &Trie, store: &ContentStore, layers: 
         .get("content_path")
         .and_then(|v| v.as_str())
         .unwrap_or(DEFAULT_CONTENT_PATH);
+    let layer_path = args
+        .get("layer_path")
+        .and_then(|v| v.as_str())
+        .unwrap_or(DEFAULT_LAYER_PATH);
 
     let byte = match trie.snapshot(byte_path) {
         Ok(r) => r,
@@ -1000,7 +1006,7 @@ fn handle_snapshot(trie: &Trie, word_trie: &Trie, store: &ContentStore, layers: 
         Ok(n) => n,
         Err(e) => return tool_error(&format!("Content-store snapshot failed: {}", e)),
     };
-    let layer_bytes = match layers.save(DEFAULT_LAYER_PATH) {
+    let layer_bytes = match layers.save(layer_path) {
         Ok(n) => n,
         Err(e) => return tool_error(&format!("Layer-store snapshot failed: {}", e)),
     };
@@ -1009,7 +1015,7 @@ fn handle_snapshot(trie: &Trie, word_trie: &Trie, store: &ContentStore, layers: 
         "byte": { "path": byte.path, "bytes_written": byte.bytes_written },
         "word": { "path": word.path, "bytes_written": word.bytes_written },
         "content": { "path": content_path, "bytes_written": content_bytes },
-        "layers": { "path": DEFAULT_LAYER_PATH, "bytes_written": layer_bytes },
+        "layers": { "path": layer_path, "bytes_written": layer_bytes },
     }))
 }
 
@@ -1026,6 +1032,10 @@ fn handle_restore(trie: &mut Trie, word_trie: &mut Trie, store: &mut ContentStor
         .get("content_path")
         .and_then(|v| v.as_str())
         .unwrap_or(DEFAULT_CONTENT_PATH);
+    let layer_path = args
+        .get("layer_path")
+        .and_then(|v| v.as_str())
+        .unwrap_or(DEFAULT_LAYER_PATH);
 
     let byte_restored = match Trie::restore_from(byte_path) {
         Ok(r) => r,
@@ -1056,8 +1066,8 @@ fn handle_restore(trie: &mut Trie, word_trie: &mut Trie, store: &mut ContentStor
     };
 
     // Restore layer store if file exists
-    let layer_count = if LayerStore::exists(DEFAULT_LAYER_PATH) {
-        match LayerStore::load(DEFAULT_LAYER_PATH) {
+    let layer_count = if LayerStore::exists(layer_path) {
+        match LayerStore::load(layer_path) {
             Ok(restored) => {
                 let count = restored.count();
                 *layers = restored;
@@ -1073,7 +1083,7 @@ fn handle_restore(trie: &mut Trie, word_trie: &mut Trie, store: &mut ContentStor
         "byte": { "path": byte_path, "nodes_restored": byte_count },
         "word": { "path": word_path, "nodes_restored": word_count },
         "content": { "path": content_path, "entries_restored": content_entries },
-        "layers": { "path": DEFAULT_LAYER_PATH, "layers_restored": layer_count },
+        "layers": { "path": layer_path, "layers_restored": layer_count },
     }))
 }
 

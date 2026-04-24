@@ -21,6 +21,11 @@ impl Trie {
     pub fn snapshot(&self, path: &str) -> io::Result<SnapshotResult> {
         let bytes = bincode::serialize(self).map_err(|e| io::Error::new(io::ErrorKind::Other, e))?;
         let len = bytes.len();
+        if let Some(parent) = Path::new(path).parent() {
+            if !parent.as_os_str().is_empty() {
+                fs::create_dir_all(parent)?;
+            }
+        }
         fs::write(path, &bytes)?;
         Ok(SnapshotResult {
             path: path.to_string(),
