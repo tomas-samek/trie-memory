@@ -7,6 +7,8 @@ with a layered "honest-agent" retrieval stack built on top.
 Some architectural claims hold, some don't — see [What's honest about the
 current state](#whats-honest-about-the-current-state) before building on this.
 
+🌐 **More projects and writing:** [tomas-samek.github.io](https://tomas-samek.github.io/)
+
 ## What it is
 
 Two things, layered:
