@@ -1,3 +1,8 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://tomas-samek.github.io/banners/dark/trie-memory.svg">
+  <img alt="trie-memory: Memory for AI agents, built not to fabricate" src="https://tomas-samek.github.io/banners/light/trie-memory.svg" width="100%">
+</picture>
+
 # trie-memory
 
 An append-only, integer-only hierarchical memory exposed as an MCP server,
@@ -6,6 +11,8 @@ with a layered "honest-agent" retrieval stack built on top.
 **Status:** research PoC. Five end-to-end scenarios pass (`tests/honest_agent_*`).
 Some architectural claims hold, some don't — see [What's honest about the
 current state](#whats-honest-about-the-current-state) before building on this.
+
+🌐 **More projects and writing:** [tomas-samek.github.io](https://tomas-samek.github.io/)
 
 ## What it is
 
