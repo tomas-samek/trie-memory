@@ -1,3 +1,8 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://tomas-samek.github.io/banners/dark/trie-memory.svg">
+  <img alt="trie-memory: Memory for AI agents, built not to fabricate" src="https://tomas-samek.github.io/banners/light/trie-memory.svg" width="100%">
+</picture>
+
 # trie-memory
 
 An append-only, integer-only hierarchical memory exposed as an MCP server,
